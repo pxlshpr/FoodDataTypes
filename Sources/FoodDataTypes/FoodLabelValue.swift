@@ -26,6 +26,11 @@ extension FoodLabelValue: Equatable {
 
 
 extension FoodLabelValue: CustomStringConvertible {
+    public var hasEnergyUnit: Bool {
+        guard let unit = unit else { return false }
+        return unit.isEnergy
+    }
+
     public var description: String {
         if let unit = unit {
             return "\(amount.cleanAmount) \(unit.description)"

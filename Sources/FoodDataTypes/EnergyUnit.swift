@@ -1,11 +1,11 @@
 import Foundation
 
-enum EnergyUnit: Int, CaseIterable, Codable {
+public enum EnergyUnit: Int, CaseIterable, Codable {
     case kcal = 1
     case kJ
 }
 
-extension EnergyUnit {
+public extension EnergyUnit {
     var name: String {
         switch self {
         case .kcal:
@@ -25,7 +25,7 @@ extension EnergyUnit {
     }
 }
 
-extension EnergyUnit {
+public extension EnergyUnit {
     var nutrientUnit: NutrientUnit {
         switch self {
         case .kcal: .kcal

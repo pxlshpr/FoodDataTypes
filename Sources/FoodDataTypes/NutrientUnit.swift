@@ -1,6 +1,6 @@
 import Foundation
 
-enum NutrientUnit: Int, CaseIterable, Codable {
+public enum NutrientUnit: Int, CaseIterable, Codable {
     case g = 1
     case mg
     case mgAT /// alpha-tocopherol
@@ -20,7 +20,7 @@ enum NutrientUnit: Int, CaseIterable, Codable {
     case mgGAE
 }
 
-extension NutrientUnit {
+public extension NutrientUnit {
     var abbreviation: String {
         switch self {
         case .g:        "g"
@@ -42,7 +42,7 @@ extension NutrientUnit {
     }
 }
 
-extension NutrientUnit {
+public extension NutrientUnit {
     var foodLabelUnit: FoodLabelUnit? {
         switch self {
         case .g:

@@ -53,6 +53,10 @@ public extension FoodLabelValue {
         }
         return false
     }
+    
+    static func haveValues(in string: String) -> Bool {
+        detect(in: string).count > 0
+    }
 }
 
 extension FoodLabelValue: CustomStringConvertible {

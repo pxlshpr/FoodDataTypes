@@ -24,6 +24,12 @@ extension FoodLabelValue: Equatable {
     }
 }
 
+extension FoodLabelValue: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(amount)
+        hasher.combine(unit)
+    }
+}
 
 extension FoodLabelValue: CustomStringConvertible {
     public var hasEnergyUnit: Bool {

@@ -121,7 +121,7 @@ extension FoodLabelValue {
 
 //MARK: - Detect
 
-extension FoodLabelValue {
+public extension FoodLabelValue {
     static func detect(in string: String, forScanner: Bool = true) -> [FoodLabelValue] {
         detect(in: string, withPositions: false, forScanner: forScanner).map { $0.0 }
     }

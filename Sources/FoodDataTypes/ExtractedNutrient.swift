@@ -12,7 +12,7 @@ public class ExtractedNutrient: ObservableObject, Identifiable {
     public var scannerValue: FoodLabelValue? = nil
     public var scannerValueText: RecognizedText? = nil
 
-    init(
+    public init(
         attribute: Attribute,
         attributeText: RecognizedText? = nil,
         isConfirmed: Bool = false,
@@ -33,7 +33,7 @@ public class ExtractedNutrient: ObservableObject, Identifiable {
     }
 }
 
-extension ExtractedNutrient {
+public extension ExtractedNutrient {
     var attributeBoundingBox: CGRect {
         attributeText?.boundingBox ?? .null
     }

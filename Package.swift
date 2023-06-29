@@ -14,11 +14,18 @@ let package = Package(
             name: "FoodDataTypes",
             targets: ["FoodDataTypes"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/pxlshpr/SwiftSugar", from: "0.0.97"),
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "FoodDataTypes"),
+            name: "FoodDataTypes",
+            dependencies: [
+                .product(name: "SwiftSugar", package: "SwiftSugar"),
+            ]
+        ),
         .testTarget(
             name: "FoodDataTypesTests",
             dependencies: ["FoodDataTypes"]),

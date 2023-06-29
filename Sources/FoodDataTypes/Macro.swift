@@ -11,3 +11,16 @@ public extension Macro {
         self.rawValue
     }
 }
+
+public extension Macro {
+    var attribute: Attribute {
+        switch self {
+        case .carb:
+            return .carbohydrate
+        case .fat:
+            return .fat
+        case .protein:
+            return .protein
+        }
+    }
+}

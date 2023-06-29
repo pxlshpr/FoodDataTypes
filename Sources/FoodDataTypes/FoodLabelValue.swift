@@ -31,12 +31,31 @@ extension FoodLabelValue: Hashable {
     }
 }
 
-extension FoodLabelValue: CustomStringConvertible {
-    public var hasEnergyUnit: Bool {
+
+public extension FoodLabelValue {
+    
+    var hasEnergyUnit: Bool {
         guard let unit = unit else { return false }
         return unit.isEnergy
     }
+    
+    var hasNutrientUnit: Bool {
+        guard let unit = unit else { return false }
+        return unit.isNutrientUnit
+    }
+    
+    var isReferenceEnergyValue: Bool {
+        if amount == 8400, unit == .kj {
+            return true
+        }
+        if amount == 2000, unit == .kcal {
+            return true
+        }
+        return false
+    }
+}
 
+extension FoodLabelValue: CustomStringConvertible {
     public var description: String {
         if let unit = unit {
             return "\(amount.cleanAmount) \(unit.description)"

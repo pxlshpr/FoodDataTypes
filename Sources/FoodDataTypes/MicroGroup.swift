@@ -42,3 +42,9 @@ public extension MicroGroup {
         }
     }
 }
+
+extension MicroGroup: Comparable {
+    public static func <(lhs: MicroGroup, rhs: MicroGroup) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+}

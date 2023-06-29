@@ -54,6 +54,25 @@ extension FoodLabelValue: CustomStringConvertible {
     }
 }
 
+public extension FoodLabelValue {
+    var energyAmountInCalories: Double {
+        if let unit = unit, unit == .kj {
+            return EnergyUnit.kJ.convert(amount, to: .kcal)
+        } else {
+            /// We're making the assumption that no unit implies it's in `kcal`
+            return amount
+        }
+    }
+    var energyAmountInKilojoules: Double {
+        if let unit = unit, unit == .kj {
+            return amount
+        } else {
+            /// We're making the assumption that no unit implies it's in `kcal`
+            return EnergyUnit.kcal.convert(amount, to: .kJ)
+        }
+    }
+}
+
 //MARK: - Regex
 
 extension FoodLabelValue {

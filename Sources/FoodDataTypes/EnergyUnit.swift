@@ -33,3 +33,24 @@ public extension EnergyUnit {
         }
     }
 }
+
+public extension EnergyUnit {
+    func convert(_ value: Double, to unit: EnergyUnit) -> Double {
+        switch self {
+        case .kcal:
+            switch unit {
+            case .kcal:
+                return value
+            case .kJ:
+                return value * KjPerKcal
+            }
+        case .kJ:
+            switch unit {
+            case .kcal:
+                return value / KjPerKcal
+            case .kJ:
+                return value
+            }
+        }
+    }
+}

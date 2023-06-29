@@ -152,6 +152,17 @@ extension FoodLabelValue {
 //MARK: - Detect
 
 public extension FoodLabelValue {
+    
+    ///Prioritises value with unit if only 1 is found, otherwise returning the first value
+    static func detectSingleValue(in string: String) -> FoodLabelValue? {
+        let values = Self.detect(in: string)
+        if values.containingUnit.count == 1 {
+            return values.containingUnit.first
+        } else {
+            return values.first
+        }
+    }
+
     static func detect(in string: String, forScanner: Bool = true) -> [FoodLabelValue] {
         detect(in: string, withPositions: false, forScanner: forScanner).map { $0.0 }
     }

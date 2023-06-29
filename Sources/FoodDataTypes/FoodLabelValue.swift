@@ -24,6 +24,25 @@ extension FoodLabelValue: Equatable {
     }
 }
 
+
+extension FoodLabelValue: CustomStringConvertible {
+    public var description: String {
+        if let unit = unit {
+            return "\(amount.cleanAmount) \(unit.description)"
+        } else {
+            return "\(amount.cleanAmount)"
+        }
+    }
+    
+    public var descriptionWithoutRounding: String {
+        if let unit = unit {
+            return "\(amount.cleanWithoutRounding) \(unit.description)"
+        } else {
+            return "\(amount.cleanWithoutRounding)"
+        }
+    }
+}
+
 //MARK: - Regex
 
 extension FoodLabelValue {

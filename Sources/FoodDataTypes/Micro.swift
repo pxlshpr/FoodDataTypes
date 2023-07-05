@@ -306,3 +306,58 @@ public extension Micro {
 extension Micro: Identifiable {
     public var id: Int { rawValue }
 }
+
+public extension Micro {
+    static func types(inGroup group: MicroGroup) -> [Micro] {
+        allCases.filter { $0.group == group}
+    }
+
+    static var vitamins: [Micro] {
+        types(inGroup: .vitamins)
+    }
+    
+    static var minerals: [Micro] {
+        types(inGroup: .minerals)
+    }
+    
+    static var misc: [Micro] {
+        types(inGroup: .misc)
+    }
+
+    var vitaminLetterName: String? {
+        switch self {
+        case .vitaminA:
+            return "A"
+        case .vitaminB1_thiamine:
+            return "B1"
+        case .vitaminB2_riboflavin:
+            return "B2"
+        case .vitaminB3_niacin:
+            return "B3"
+        case .vitaminB5_pantothenicAcid:
+            return "B5"
+        case .vitaminB6_pyridoxine:
+            return "B6"
+        case .vitaminB7_biotin:
+            return "B7"
+        case .vitaminB9_folate:
+            return "B9"
+        case .vitaminB9_folicAcid:
+            return "B9"
+        case .vitaminB12_cobalamin:
+            return "B12"
+        case .vitaminC_ascorbicAcid:
+            return "C"
+        case .vitaminD_calciferol:
+            return "D"
+        case .vitaminE:
+            return "E"
+        case .vitaminK1_phylloquinone:
+            return "K1"
+        case .vitaminK2_menaquinone:
+            return "K2"
+        default:
+            return nil
+        }
+    }
+}

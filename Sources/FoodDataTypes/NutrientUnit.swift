@@ -74,3 +74,75 @@ public extension NutrientUnit {
         }
     }
 }
+
+public extension NutrientUnit {
+    
+    //TODO: Write tests for these
+    
+    func convert(_ amount: Double, to unit: FoodLabelUnit) -> Double {
+        var scale: Double {
+            switch self {
+            case .g:
+                switch unit {
+                case .mcg:
+                    return 1000000
+                case .mg:
+                    return 1000
+                case .oz:
+                    return 0.035274
+                case .g:
+                    return 1
+                default:
+                    return 0
+                }
+            case .mg, .mgAT, .mgNE, .mgGAE:
+                switch unit {
+                case .mcg:
+                    return 1000
+                case .mg:
+                    return 1
+                case .oz:
+                    return 0.00003527
+                case .g:
+                    return 0.001
+                default:
+                    return 0
+                }
+            case .mcg, .mcgDFE, .mcgRAE:
+                switch unit {
+                case .mcg:
+                    return 1
+                case .mg:
+                    return 0.001
+                case .oz:
+                    return 0.000000035274
+                case .g:
+                    return 0.000001
+                default:
+                    return 0
+                }
+            case .kcal:
+                switch unit {
+                case .kj:
+                    return KjPerKcal
+                default:
+                    return 0
+                }
+            case .kJ:
+                switch unit {
+                case .kcal:
+                    return 1.0/KjPerKcal
+                default:
+                    return 0
+                }
+            case .IU:
+                //TODO: Handle this
+                return 0
+            default:
+                return 0
+            }
+        }
+        
+        return amount * scale
+    }
+}

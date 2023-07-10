@@ -12,23 +12,34 @@ public extension Micro {
         case .polyunsaturatedFat:
             return nil
         case .transFat:
-            return nil
+            return (0, .g)
+            
         case .cholesterol:
             return nil
+            
         case .dietaryFiber:
-            return (28, .g)
+            return nil
+//            return (28, .g)
+            
         case .solubleFiber:
             /// "with about one-fourth — 6 to 8 grams per day — coming from soluble fiber." https://www.ucsfhealth.org/education/increasing-fiber-intake
-            return (7, .g)
+//            return (7, .g)
+            return nil
+            
         case .insolubleFiber:
             /// "with about one-fourth — 6 to 8 grams per day — coming from soluble fiber." https://www.ucsfhealth.org/education/increasing-fiber-intake
-            return (21, .g)
+//            return (21, .g)
+            return nil
+            
         case .sugars:
-            return (80, .g)
+            return (0, .g)
+            
         case .addedSugars:
-            return (50, .g)
+            return (0, .g)
+            
         case .sugarAlcohols:
-            return (20, .g)
+            return (0, .g)
+            
         case .calcium:
             return (1300, .mg)
         case .chloride:
@@ -91,7 +102,7 @@ public extension Micro {
         case .vitaminB1_thiamine:
             return (1.2, .mg)
         case .caffeine:
-            return (400, .mg)
+            return (0, .mg)
         case .ethanol:
             return nil
         case .vitaminB9_folicAcid:
@@ -112,7 +123,7 @@ public extension Micro {
             
         case .salt:
             /// https://www.hsph.harvard.edu/nutritionsource/salt-and-sodium/
-            /// "t is estimated that we need about 500 mg of sodium daily for these vital functions" `500 x 2.5 = 1,250 mg`
+            /// "It is estimated that we need about 500 mg of sodium daily for these vital functions" `500 x 2.5 = 1,250 mg`
             return (1.25, .g)
         default:
             return nil
@@ -123,33 +134,51 @@ public extension Micro {
     var dailyValueMax: (Double, NutrientUnit)? {
         switch self {
         case .saturatedFat:
-            return (20, .g)
+//            return (20, .g)
+            return nil
+            
         case .monounsaturatedFat:
             /// https://news.christianacare.org/2013/04/nutrition-numbers-revealed-fat-intake/
-            return (44, .g)
+//            return (44, .g)
+            return nil
+            
         case .polyunsaturatedFat:
             /// https://news.christianacare.org/2013/04/nutrition-numbers-revealed-fat-intake/
-            return (22, .g)
+//            return (22, .g)
+            return nil
+
         case .transFat:
             /// https://www.who.int/news-room/questions-and-answers/item/nutrition-trans-fat
             return (2.2, .g)
+            
         case .cholesterol:
-            return (300, .mg)
+            return nil
+//            return (300, .mg)
+            
         case .dietaryFiber:
             /// https://www.integratedeating.com/blog/2020/9/21/myth-there-is-no-such-thing-as-too-much-fiber
-            return (70, .g)
+//            return (70, .g)
+            return nil
+            
         case .solubleFiber:
-            return (17.5, .g)
+//            return (17.5, .g)
+            return nil
+            
         case .insolubleFiber:
-            return (52.5, .g)
+//            return (52.5, .g)
+            return nil
+            
         case .sugars:
             /// Adding `.addedSugars` + free sugars [from here](https://www.nhs.uk/live-well/eat-well/food-types/how-does-sugar-in-our-diet-affect-our-health/)
+//            return nil
             return (80, .g)
+            
         case .addedSugars:
             return (50, .g)
         case .sugarAlcohols:
             /// https://www.goodrx.com/well-being/diet-nutrition/what-are-sugar-alcohols-and-are-they-healthy
             return (20, .g)
+            
         case .calcium:
             /// https://www.hsph.harvard.edu/nutritionsource/calcium/
             return (2500, .mg)
@@ -170,7 +199,7 @@ public extension Micro {
             return (45, .mg)
         case .magnesium:
             /// https://hvmn.com/blogs/blog/supplements-magnesium-supplement-guide
-            return (750, .g)
+            return (750, .mg)
         case .manganese:
             /// https://www.hsph.harvard.edu/nutritionsource/manganese/
             return (11, .mg)

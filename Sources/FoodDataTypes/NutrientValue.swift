@@ -97,3 +97,28 @@ public extension FoodLabelUnit {
         }
     }
 }
+
+public extension NutrientValue {
+    func matches(_ other: NutrientValue) -> Bool {
+        nutrient == other.nutrient
+        && unit == other.unit
+        && value.matches(other.value)
+    }
+}
+
+public extension Array where Element == NutrientValue {
+    func matches(_ other: [NutrientValue]) -> Bool {
+        for nutrientValue in self {
+            guard other.contains(where: { $0.matches(nutrientValue)}) else {
+                return false
+            }
+        }
+        return true
+    }
+}
+
+public extension Double {
+    func matches(_ other: Double) -> Bool {
+        self.rounded(toPlaces: 1) == other.rounded(toPlaces: 1)
+    }
+}

@@ -3,6 +3,11 @@ import Foundation
 public struct WeightQuantity: Hashable {
     public let value: Double
     public let unit: WeightUnit
+    
+    public init(value: Double, unit: WeightUnit) {
+        self.value = value
+        self.unit = unit
+    }
 }
 
 public extension WeightQuantity {

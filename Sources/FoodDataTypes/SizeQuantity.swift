@@ -4,6 +4,12 @@ public struct SizeQuantity: Hashable {
     public let value: Double
     public let size: FoodQuantity.Size
     public var volumeUnit: VolumeUnit? = nil
+    
+    public init(value: Double, size: FoodQuantity.Size, volumeUnit: VolumeUnit? = nil) {
+        self.value = value
+        self.size = size
+        self.volumeUnit = volumeUnit
+    }
 }
 
 public extension SizeQuantity {

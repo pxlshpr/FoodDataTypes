@@ -3,6 +3,11 @@ import Foundation
 public struct VolumeQuantity: Hashable {
     public let value: Double
     public let unit: VolumeUnit
+    
+    public init(value: Double, unit: VolumeUnit) {
+        self.value = value
+        self.unit = unit
+    }
 }
 
 public extension VolumeQuantity {

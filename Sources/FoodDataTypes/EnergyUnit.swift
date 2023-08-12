@@ -54,3 +54,12 @@ public extension EnergyUnit {
         }
     }
 }
+
+public extension EnergyUnit {
+    var foodLabelUnit: FoodLabelUnit {
+        switch self {
+        case .kcal: .kcal
+        case .kJ:   .kj
+        }
+    }
+}

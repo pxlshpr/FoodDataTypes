@@ -361,3 +361,144 @@ public extension Micro {
         }
     }
 }
+
+public extension Micro {
+    var isIncludedInPreview: Bool {
+        switch self {
+        case .saturatedFat:
+            return true
+//        case .monounsaturatedFat:
+//            return true
+//        case .polyunsaturatedFat:
+//            return true
+        case .transFat:
+            return true
+        case .cholesterol:
+            return true
+        case .dietaryFiber:
+            return true
+//        case .solubleFiber:
+//            <#code#>
+//        case .insolubleFiber:
+//            <#code#>
+        case .sugars:
+            return true
+        case .addedSugars:
+            return true
+//        case .sugarAlcohols:
+//            <#code#>
+//        case .calcium:
+//            <#code#>
+//        case .chloride:
+//            <#code#>
+//        case .chromium:
+//            <#code#>
+//        case .copper:
+//            <#code#>
+//        case .iodine:
+//            <#code#>
+//        case .iron:
+//            <#code#>
+//        case .magnesium:
+//            return true
+//        case .manganese:
+//            <#code#>
+//        case .molybdenum:
+//            <#code#>
+//        case .phosphorus:
+//            <#code#>
+//        case .potassium:
+//            return true
+//        case .selenium:
+//            <#code#>
+        case .sodium:
+            return true
+//        case .zinc:
+//            <#code#>
+//        case .vitaminA:
+//            <#code#>
+//        case .vitaminB1_thiamine:
+//            <#code#>
+//        case .vitaminB2_riboflavin:
+//            <#code#>
+//        case .vitaminB3_niacin:
+//            <#code#>
+//        case .vitaminB5_pantothenicAcid:
+//            <#code#>
+//        case .vitaminB6_pyridoxine:
+//            <#code#>
+//        case .vitaminB7_biotin:
+//            <#code#>
+//        case .vitaminB9_folate:
+//            <#code#>
+//        case .vitaminB9_folicAcid:
+//            <#code#>
+//        case .vitaminB12_cobalamin:
+//            <#code#>
+//        case .vitaminC_ascorbicAcid:
+//            <#code#>
+//        case .vitaminD_calciferol:
+//            <#code#>
+//        case .vitaminE:
+//            <#code#>
+//        case .vitaminK1_phylloquinone:
+//            <#code#>
+//        case .vitaminK2_menaquinone:
+//            <#code#>
+//        case .choline:
+//            <#code#>
+//        case .caffeine:
+//            <#code#>
+//        case .ethanol:
+//            <#code#>
+//        case .taurine:
+//            <#code#>
+//        case .polyols:
+//            <#code#>
+//        case .gluten:
+//            <#code#>
+//        case .starch:
+//            <#code#>
+//        case .salt:
+//            <#code#>
+//        case .creatine:
+//            <#code#>
+//        case .energyWithoutDietaryFibre:
+//            <#code#>
+//        case .water:
+//            <#code#>
+//        case .freeSugars:
+//            <#code#>
+//        case .ash:
+//            <#code#>
+//        case .preformedVitaminARetinol:
+//            <#code#>
+//        case .betaCarotene:
+//            <#code#>
+//        case .provitaminABetaCaroteneEquivalents:
+//            <#code#>
+//        case .niacinDerivedEquivalents:
+//            <#code#>
+//        case .totalFolates:
+//            <#code#>
+//        case .dietaryFolateEquivalents:
+//            <#code#>
+//        case .alphaTocopherol:
+//            <#code#>
+//        case .tryptophan:
+//            <#code#>
+//        case .linoleicAcid:
+//            <#code#>
+//        case .alphaLinolenicAcid:
+//            <#code#>
+//        case .eicosapentaenoicAcid:
+//            <#code#>
+//        case .docosapentaenoicAcid:
+//            <#code#>
+//        case .docosahexaenoicAcid:
+//            <#code#>
+        default:
+            return false
+        }
+    }
+}

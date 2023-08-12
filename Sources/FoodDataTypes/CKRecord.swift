@@ -3,7 +3,7 @@ import CloudKit
 
 public let BarcodesSeparator = "¦"
 
-extension CKRecord {
+public extension CKRecord {
     var id: UUID? {
         guard let string = self[PublicFoodKeys.id.rawValue] as? String else { return nil }
         return UUID(uuidString: string)

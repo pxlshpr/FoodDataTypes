@@ -1,6 +1,6 @@
 import Foundation
 
-struct FoodNutrient: Codable, Hashable {
+public struct FoodNutrient: Codable, Hashable {
     
     static let ArraySeparator = "¦"
     static let Separator = "_"
@@ -18,7 +18,7 @@ struct FoodNutrient: Codable, Hashable {
     var unit: NutrientUnit
 }
 
-extension FoodNutrient {
+public extension FoodNutrient {
     
     init?(_ nutrientValue: NutrientValue) {
         guard let micro = nutrientValue.micro else { return nil }

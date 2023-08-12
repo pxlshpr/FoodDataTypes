@@ -16,6 +16,13 @@ public struct FoodNutrient: Codable, Hashable {
     public var usdaType: Int?
     public var value: Double
     public var unit: NutrientUnit
+    
+    public init(micro: Micro? = nil, usdaType: Int? = nil, value: Double, unit: NutrientUnit) {
+        self.micro = micro
+        self.usdaType = usdaType
+        self.value = value
+        self.unit = unit
+    }
 }
 
 public extension FoodNutrient {
@@ -28,5 +35,20 @@ public extension FoodNutrient {
             value: nutrientValue.value,
             unit: nutrientValue.unit
         )
+    }
+}
+
+extension FoodNutrient {
+    var valueInGrams: Double {
+        switch unit {
+        case .g:
+            return value
+        case .mg, .mgAT, .mgNE, .mgGAE:
+            return value / 1000.0
+        case .mcg, .mcgDFE, .mcgRAE:
+            return value / 1000000.0
+        default:
+            return 0
+        }
     }
 }

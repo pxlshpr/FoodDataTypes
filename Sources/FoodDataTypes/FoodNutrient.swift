@@ -8,14 +8,14 @@ public struct FoodNutrient: Codable, Hashable {
     /**
      This can only be `nil` for USDA imported nutrients that aren't yet supported (and must therefore have a `usdaType` if so).
      */
-    var micro: Micro?
+    public var micro: Micro?
     
     /**
      This is used to store the id of a USDA nutrient.
      */
-    var usdaType: Int?
-    var value: Double
-    var unit: NutrientUnit
+    public var usdaType: Int?
+    public var value: Double
+    public var unit: NutrientUnit
 }
 
 public extension FoodNutrient {

@@ -2,7 +2,7 @@ import Foundation
 
 public extension FoodQuantity {
 
-    public struct Size: Hashable {
+    struct Size: Hashable {
         public let quantity: Double
         public let volumeUnit: VolumeUnit?
         public let name: String

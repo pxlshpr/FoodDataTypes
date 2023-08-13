@@ -367,3 +367,13 @@ public extension String {
         return String(character)
     }
 }
+
+public extension Food {
+    var macrosChartData: [MacroValue] {
+        [
+            MacroValue(macro: .carb, value: carb),
+            MacroValue(macro: .fat, value: fat),
+            MacroValue(macro: .protein, value: protein)
+        ]
+    }
+}

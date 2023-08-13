@@ -3,7 +3,7 @@ import Foundation
 
 //private let logger = Logger(subsystem: "FoodItem", category: "")
 
-public struct FoodItem: Identifiable, Hashable {
+public struct FoodItem: Identifiable, Codable, Hashable {
     public var id: UUID
     
     public var amount: FoodValue

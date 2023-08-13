@@ -77,7 +77,6 @@ public extension Macro {
         case .fat:      KcalsPerGramOfFat
         case .protein:  KcalsPerGramOfProtein
         }
-
     }
     
     static func chartStyleScale(_ colorScheme: ColorScheme) -> KeyValuePairs<Macro, Color> {

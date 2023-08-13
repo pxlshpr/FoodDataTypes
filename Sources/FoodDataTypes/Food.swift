@@ -1,6 +1,7 @@
 import Foundation
+import UIKit
 
-public struct Food: Identifiable, Codable, Hashable {
+public struct Food: Identifiable, Hashable {
     public var id: UUID
     
     public var emoji: String
@@ -43,6 +44,9 @@ public struct Food: Identifiable, Codable, Hashable {
     
     public var ownerID: String?
     
+    //MARK: Verified Foods
+    public var images: [UIImage]
+
     public init(
         id: UUID = UUID(),
         emoji: String = String.randomFoodEmoji,
@@ -72,7 +76,8 @@ public struct Food: Identifiable, Codable, Hashable {
         createdAt: Date = Date.now,
         isTrashed: Bool = false,
         childrenFoodItems: [FoodItem] = [],
-        ownerID: String?
+        ownerID: String?,
+        images: [UIImage] = []
     ) {
         self.id = id
         self.emoji = emoji
@@ -103,6 +108,7 @@ public struct Food: Identifiable, Codable, Hashable {
         self.isTrashed = isTrashed
         self.childrenFoodItems = childrenFoodItems
         self.ownerID = ownerID
+        self.images = images
     }
 }
 

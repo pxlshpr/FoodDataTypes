@@ -78,7 +78,7 @@ public struct Food: Identifiable, Codable, Hashable {
         isTrashed: Bool = false,
         childrenFoodItems: [FoodItem] = [],
         ownerID: String?,
-        rejectionReasons: [RejectionReason] = [],
+        rejectionReasons: [RejectionReason]? = nil,
         rejectionNotes: String? = nil,
         reviewerID: String? = nil,
         searchTokens: [String] = []

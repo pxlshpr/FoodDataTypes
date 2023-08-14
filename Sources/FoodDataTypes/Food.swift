@@ -77,7 +77,7 @@ public struct Food: Identifiable, Codable, Hashable {
         createdAt: Date = Date.now,
         isTrashed: Bool = false,
         childrenFoodItems: [FoodItem] = [],
-        ownerID: String?,
+        ownerID: String? = nil,
         rejectionReasons: [RejectionReason]? = nil,
         rejectionNotes: String? = nil,
         reviewerID: String? = nil,

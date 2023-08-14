@@ -43,6 +43,11 @@ public struct Food: Identifiable, Codable, Hashable {
     
     public var ownerID: String?
     
+    public var reviewerID: String?
+    public var rejectionReasons: [RejectionReason]?
+    public var rejectionNotes: String?
+    public var searchTokens: [String]
+    
     public init(
         id: UUID = UUID(),
         emoji: String = String.randomFoodEmoji,
@@ -72,7 +77,11 @@ public struct Food: Identifiable, Codable, Hashable {
         createdAt: Date = Date.now,
         isTrashed: Bool = false,
         childrenFoodItems: [FoodItem] = [],
-        ownerID: String?
+        ownerID: String?,
+        rejectionReasons: [RejectionReason] = [],
+        rejectionNotes: String? = nil,
+        reviewerID: String? = nil,
+        searchTokens: [String] = []
     ) {
         self.id = id
         self.emoji = emoji
@@ -103,6 +112,10 @@ public struct Food: Identifiable, Codable, Hashable {
         self.isTrashed = isTrashed
         self.childrenFoodItems = childrenFoodItems
         self.ownerID = ownerID
+        self.rejectionReasons = rejectionReasons
+        self.rejectionNotes = rejectionNotes
+        self.reviewerID = reviewerID
+        self.searchTokens = searchTokens
     }
 }
 

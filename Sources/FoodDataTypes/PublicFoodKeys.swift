@@ -35,6 +35,11 @@ public enum PublicFoodKeys: String {
     case image3
     case image4
     case image5
+    
+    case rejectionReasonsData
+    case rejectionNotes
+    case reviewerID
+    case searchTokensString
 }
 
 public extension PublicFoodKeys {
@@ -71,7 +76,11 @@ public extension PublicFoodKeys {
             .createdAt,
             .updatedAt,
             .isTrashed,
-            .ingredients
+            .ingredients,
+            .rejectionReasonsData,
+            .rejectionNotes,
+            .reviewerID,
+            .searchTokensString
         ]
     }
 }

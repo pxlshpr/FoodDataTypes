@@ -2,6 +2,7 @@ import Foundation
 import CloudKit
 
 public let BarcodesSeparator = "¦"
+public let SearchTokensSeparator = " ¦ "
 
 public extension CKRecord {
     var id: UUID? {
@@ -15,6 +16,8 @@ public extension CKRecord {
     var datasetID: String? { self[PublicFoodKeys.datasetID.rawValue] as? String }
     var url: String? { self[PublicFoodKeys.url.rawValue] as? String }
     var ownerID: String? { self[PublicFoodKeys.ownerID.rawValue] as? String }
+    var reviewerID: String? { self[PublicFoodKeys.reviewerID.rawValue] as? String }
+    var rejectionNotes: String? { self[PublicFoodKeys.rejectionNotes.rawValue] as? String }
 
     var amount: FoodValue? {
         guard let data = self[PublicFoodKeys.amountData.rawValue] as? Data else { return nil }
@@ -36,6 +39,12 @@ public extension CKRecord {
         guard let data = self[PublicFoodKeys.sizesData.rawValue] as? Data else { return nil }
         return try? JSONDecoder().decode([FoodSize].self, from: data)
     }
+    
+    var rejectionReasons: [RejectionReason]? {
+        guard let data = self[PublicFoodKeys.rejectionReasonsData.rawValue] as? Data else { return nil }
+        return try? JSONDecoder().decode([RejectionReason].self, from: data)
+    }
+
     var density: FoodDensity? {
         guard let data = self[PublicFoodKeys.densityData.rawValue] as? Data else { return nil }
         return try? JSONDecoder().decode(FoodDensity.self, from: data)
@@ -43,6 +52,11 @@ public extension CKRecord {
     var barcodes: [String] {
         guard let string = self[PublicFoodKeys.barcodesString.rawValue] as? String else { return [] }
         return string.components(separatedBy: BarcodesSeparator)
+    }
+
+    var searchTokens: [String] {
+        guard let string = self[PublicFoodKeys.searchTokensString.rawValue] as? String else { return [] }
+        return string.components(separatedBy: SearchTokensSeparator)
     }
 
     var energy: Double? { self[PublicFoodKeys.energy.rawValue] as? Double }

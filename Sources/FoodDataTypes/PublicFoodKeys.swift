@@ -42,6 +42,15 @@ public enum PublicFoodKeys: String {
     case searchTokensString
 }
 
+import CloudKit
+
+public extension CKRecord {
+    subscript(key: PublicFoodKeys) -> CKRecordValue? {
+        get { self[key.rawValue] }
+        set { self[key.rawValue] = newValue }
+    }
+}
+
 public extension PublicFoodKeys {
     
     static var desiredKeysAsStrings: [String] {

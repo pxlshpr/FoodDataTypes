@@ -30,7 +30,11 @@ public extension Food {
             createdAt: record.createdAt!,
             isTrashed: record.isTrashed!,
             childrenFoodItems: [],
-            ownerID: record.ownerID
+            ownerID: record.ownerID,
+            rejectionReasons: record.rejectionReasons,
+            rejectionNotes: record.rejectionNotes,
+            reviewerID: record.reviewerID,
+            searchTokens: record.searchTokens
         )
     }
 }

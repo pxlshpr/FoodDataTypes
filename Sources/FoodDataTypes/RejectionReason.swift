@@ -4,6 +4,7 @@ public enum RejectionReason: Int, CaseIterable, Codable {
     
     case duplicateFood = 1
     case missingNameSource
+    case incompleteDetails
     case invalidLink
     
     case invalidNutrientsSource
@@ -36,6 +37,8 @@ public extension RejectionReason {
             "Missing source for name"
         case .duplicateFood:
             "Duplicate food"
+        case .incompleteDetails:
+            "Incomplete Details"
         case .invalidLink:
             "Unsupported source website"
 
@@ -80,7 +83,7 @@ public extension RejectionReason {
         switch self {
         case .missingNutrientsSource, .incompleteNutrients, .energyDoesNotEqualMacros, .nutrientsDoNotMatchSource:
                 .nutrients
-        case .duplicateFood, .missingNameSource, .invalidLink, .invalidNutrientsSource:
+        case .duplicateFood, .missingNameSource, .invalidLink, .invalidNutrientsSource, .incompleteDetails:
                 .food
         case .invalidSizes, .missingSizes, .missingSizesSource:
                 .sizes

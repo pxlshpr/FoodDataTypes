@@ -25,7 +25,7 @@ public struct Food: Identifiable, Codable, Hashable {
     public var density: FoodDensity?
     
     public var url: String?
-//    var imageIDs: [UUID]
+    public var imageIDs: [UUID]
     public var barcodes: [String]
     
     public var type: FoodType
@@ -66,7 +66,7 @@ public struct Food: Identifiable, Codable, Hashable {
         sizes: [FoodSize] = [],
         density: FoodDensity? = nil,
         url: String? = nil,
-//        imageIDs: [UUID] = [],
+        imageIDs: [UUID] = [],
         barcodes: [String] = [],
         type: FoodType = .food,
         publishStatus: PublishStatus? = nil,
@@ -100,7 +100,7 @@ public struct Food: Identifiable, Codable, Hashable {
         self.sizes = sizes
         self.density = density
         self.url = url
-//        self.imageIDs = imageIDs
+        self.imageIDs = imageIDs
         self.barcodes = barcodes
         self.type = type
         self.publishStatus = publishStatus

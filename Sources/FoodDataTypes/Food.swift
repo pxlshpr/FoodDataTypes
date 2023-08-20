@@ -119,7 +119,7 @@ public struct Food: Identifiable, Codable, Hashable {
         self.rejectionNotes = rejectionNotes
         self.reviewerID = reviewerID
         self.searchTokens = searchTokens
-        self.isPendingNotification = false
+        self.isPendingNotification = isPendingNotification
     }
 }
 

@@ -48,6 +48,8 @@ public struct Food: Identifiable, Codable, Hashable {
     public var rejectionNotes: String?
     public var searchTokens: [String]
     
+    public var isPendingNotification: Bool
+    
     public init(
         id: UUID = UUID(),
         emoji: String = String.randomFoodEmoji,
@@ -81,7 +83,8 @@ public struct Food: Identifiable, Codable, Hashable {
         rejectionReasons: [RejectionReason]? = nil,
         rejectionNotes: String? = nil,
         reviewerID: String? = nil,
-        searchTokens: [String] = []
+        searchTokens: [String] = [],
+        isPendingNotification: Bool = false
     ) {
         self.id = id
         self.emoji = emoji
@@ -116,6 +119,7 @@ public struct Food: Identifiable, Codable, Hashable {
         self.rejectionNotes = rejectionNotes
         self.reviewerID = reviewerID
         self.searchTokens = searchTokens
+        self.isPendingNotification = false
     }
 }
 

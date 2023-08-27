@@ -21,7 +21,7 @@ public extension Food {
             density: record.density,
             url: record.url,
             barcodes: record.barcodes,
-            type: record.type!,
+            type: record.type ?? .food,
             publishStatus: record.publishStatus,
             dataset: record.dataset,
             datasetID: record.datasetID,

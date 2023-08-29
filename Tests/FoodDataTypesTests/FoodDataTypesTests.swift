@@ -2,11 +2,23 @@ import XCTest
 @testable import FoodDataTypes
 
 final class FoodDataTypesTests: XCTestCase {
-    func testExample() throws {
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
-
-        // Defining Test Cases and Test Methods
-        // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
+    func testSearchTokenRepresentation() throws {
+        let word = SearchWord(
+            singular: "banana",
+            plural: "bananas",
+            misspellings: ["banna", "banan", "bannana", "banane", "banano", "bannas", "banans", "banananes", "bannanas", "bananoes"]
+        )
+        
+        let token = SearchToken(word: word, rank: 1)
+        let jsonData = try! JSONEncoder().encode(token)
+        guard let string = String(data: jsonData, encoding: String.Encoding.utf8) else {
+            fatalError()
+        }
+        print(string)
+        
+        let dataFromString = Data(string.utf8)
+        let decodedToken = try! JSONDecoder().decode(SearchToken.self, from: dataFromString)
+        print("decodedToken: \(decodedToken)")
+        print("")
     }
 }

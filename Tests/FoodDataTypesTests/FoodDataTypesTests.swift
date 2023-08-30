@@ -2,23 +2,29 @@ import XCTest
 @testable import FoodDataTypes
 
 final class FoodDataTypesTests: XCTestCase {
-    func testSearchTokenRepresentation() throws {
-        let word = SearchWord(
+    func testSearchEncoding() throws {
+        let banana = SearchWord(
             singular: "banana",
             plural: "bananas",
             misspellings: ["banna", "banan", "bannana", "banane", "banano", "bannas", "banans", "banananes", "bannanas", "bananoes"]
         )
+
+        let apple = SearchWord(
+            singular: "apple",
+            plural: "apples",
+            misspellings: ["aple", "appple", "appl", "aepple", "aples", "appls", "appples", "aeples", "aipple"]
+        )
+
+        let bananaToken = SearchToken(word: banana, rank: 1)
+        let appleToken = SearchToken(word: apple, rank: 0)
         
-        let token = SearchToken(word: word, rank: 1)
-        let jsonData = try! JSONEncoder().encode(token)
-        guard let string = String(data: jsonData, encoding: String.Encoding.utf8) else {
-            fatalError()
-        }
-        print(string)
-        
-        let dataFromString = Data(string.utf8)
-        let decodedToken = try! JSONDecoder().decode(SearchToken.self, from: dataFromString)
-        print("decodedToken: \(decodedToken)")
-        print("")
+        let tokens = SearchTokens(tokens: [bananaToken, appleToken])
+        print(tokens.asString)
+    }
+
+    func testSearchDecoding() throws {
+        let encoded = "banana ¦ bananas ¦ banna , banan , bannana , banane , banano , bannas , banans , banananes , bannanas , bananoes | 1 ; apple ¦ apples ¦ aple , appple , appl , aepple , aples , appls , appples , aeples , aipple | 0"
+        let tokens = SearchTokens(from: encoded)
+        print("We here")
     }
 }

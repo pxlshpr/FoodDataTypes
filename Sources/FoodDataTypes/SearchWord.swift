@@ -3,7 +3,7 @@ import Foundation
 private let SearchWordPropertySeparator = " ¦ "
 private let SearchWordMisspellingSeparator = " , "
 
-public struct SearchWord: Codable, Hashable, Equatable {
+public struct SearchWord: Identifiable, Codable, Hashable, Equatable {
     public let id: UUID
     public var singular: String
     public var plural: String

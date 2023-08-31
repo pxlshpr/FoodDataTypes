@@ -2,7 +2,7 @@ import Foundation
 
 private let SearchTokenPropertySeparator = " | "
 
-public struct SearchToken: Codable {
+public struct SearchToken: Codable, Hashable, Equatable {
     public var word: SearchWord
     public var rank: Int
     
@@ -26,5 +26,11 @@ public struct SearchToken: Codable {
         word.asString
         + SearchTokenPropertySeparator
         + "\(rank)"
+    }
+}
+
+extension SearchToken: Identifiable {
+    public var id: UUID {
+        word.id
     }
 }

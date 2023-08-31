@@ -4,14 +4,27 @@ private let SearchWordPropertySeparator = " ¦ "
 private let SearchWordMisspellingSeparator = " , "
 
 public struct SearchWord: Codable {
+    public let id: UUID
     public var singular: String
     public var plural: String
     public var misspellings: [String]
+    public var createdAt: Date
+    public var updatedAt: Date
     
-    public init(singular: String, plural: String, misspellings: [String]) {
+    public init(
+        id: UUID = UUID(),
+        singular: String,
+        plural: String,
+        misspellings: [String],
+        createdAt: Date = Date(),
+        updatedAt: Date = Date()
+    ) {
+        self.id = id
         self.singular = singular
         self.plural = plural
         self.misspellings = misspellings
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
     }
     
     public init?(from string: String) {

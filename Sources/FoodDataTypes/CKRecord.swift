@@ -54,9 +54,9 @@ public extension CKRecord {
         return string.components(separatedBy: BarcodesSeparator)
     }
 
-    var searchWordIDs: [UUID] {
-        guard let string = self[.searchWordIDsString] as? String else { return [] }
-        return string.searchWordIDs
+    var searchTokens: [FlattenedSearchToken] {
+        guard let string = self[.searchTokensString] as? String else { return [] }
+        return string.searchTokens
     }
 
     var energy: Double? { self[.energy] as? Double }

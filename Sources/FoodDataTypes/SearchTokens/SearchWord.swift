@@ -23,20 +23,3 @@ public struct SearchWord: Identifiable, Codable, Hashable, Equatable {
         self.updatedAt = updatedAt
     }
 }
-
-public extension String {
-    var searchWordIDs: [UUID] {
-        guard !isEmpty else { return [] }
-        return self
-            .components(separatedBy: SearchWordIDSeparator)
-            .compactMap { UUID(uuidString: $0) }
-    }
-}
-
-public extension Array where Element == UUID {
-    var asString: String {
-        self
-            .map { $0.uuidString }
-            .joined(separator: SearchWordIDSeparator)
-    }
-}

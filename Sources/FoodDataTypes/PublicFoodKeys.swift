@@ -39,7 +39,7 @@ public enum PublicFoodKeys: String {
     case rejectionReasonsData
     case rejectionNotes
     case reviewerID
-    case searchTokensString
+    case searchWordIDsString
 }
 
 import CloudKit
@@ -89,7 +89,7 @@ public extension PublicFoodKeys {
             .rejectionReasonsData,
             .rejectionNotes,
             .reviewerID,
-            .searchTokensString
+            .searchWordIDsString
         ]
     }
 }

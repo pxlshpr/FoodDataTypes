@@ -34,7 +34,7 @@ public extension Food {
             rejectionReasons: record.rejectionReasons,
             rejectionNotes: record.rejectionNotes,
             reviewerID: record.reviewerID,
-            searchTokens: record.searchTokens
+            searchWordIDs: record.searchWordIDs
         )
     }
 }

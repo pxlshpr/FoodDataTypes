@@ -15,3 +15,9 @@ extension SearchToken: Identifiable {
         word.id
     }
 }
+
+public extension Array where Element == SearchToken {
+    var flattened: [FlattenedSearchToken] {
+        self.map { FlattenedSearchToken(wordID: $0.word.id, rank: $0.rank) }
+    }
+}

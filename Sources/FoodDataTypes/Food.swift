@@ -46,7 +46,7 @@ public struct Food: Identifiable, Codable, Hashable {
     public var reviewerID: String?
     public var rejectionReasons: [RejectionReason]?
     public var rejectionNotes: String?
-    public var searchTokens: [String]
+    public var searchTokens: [FlattenedSearchToken]
     
     public var isPendingNotification: Bool
     
@@ -83,7 +83,7 @@ public struct Food: Identifiable, Codable, Hashable {
         rejectionReasons: [RejectionReason]? = nil,
         rejectionNotes: String? = nil,
         reviewerID: String? = nil,
-        searchTokens: [String] = [],
+        searchTokens: [FlattenedSearchToken] = [],
         isPendingNotification: Bool = false
     ) {
         self.id = id

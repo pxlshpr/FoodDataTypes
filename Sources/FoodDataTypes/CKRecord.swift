@@ -2,7 +2,7 @@ import Foundation
 import CloudKit
 
 public let BarcodesSeparator = "¦"
-public let SearchTokensSeparator = " ¦ "
+//public let SearchTokensSeparator = " ¦ "
 
 public extension CKRecord {
     var id: UUID? {
@@ -54,9 +54,9 @@ public extension CKRecord {
         return string.components(separatedBy: BarcodesSeparator)
     }
 
-    var searchTokens: [String] {
+    var searchTokens: [FlattenedSearchToken] {
         guard let string = self[.searchTokensString] as? String else { return [] }
-        return string.components(separatedBy: SearchTokensSeparator)
+        return string.searchTokens
     }
 
     var energy: Double? { self[.energy] as? Double }

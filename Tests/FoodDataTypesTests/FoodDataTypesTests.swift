@@ -13,8 +13,8 @@ final class FoodDataTypesTests: XCTestCase {
             spellings: ["apples", "aple", "appple", "appl", "aepple", "aples", "appls", "appples", "aeples", "aipple"]
         )
 
-        let bananaTokenFlattened = FlattenedSearchToken(wordID: banana.id, rank: 1)
-        let appleTokenFlattened = FlattenedSearchToken(wordID: apple.id, rank: 0)
+        let bananaTokenFlattened = FlattenedSearchToken(wordID: banana.id, isPinned: true)
+        let appleTokenFlattened = FlattenedSearchToken(wordID: apple.id, isPinned: false)
 
         let flattenedTokens = [bananaTokenFlattened, appleTokenFlattened]
         

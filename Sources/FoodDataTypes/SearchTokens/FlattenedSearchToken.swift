@@ -5,11 +5,11 @@ private let FlattenedSearchTokenPropertySeparator = " "
 
 public struct FlattenedSearchToken: Codable, Hashable, Equatable {
     public var wordID: UUID
-    public var rank: Int
+    public var isPinned: Bool
     
-    public init(wordID: UUID, rank: Int) {
+    public init(wordID: UUID, isPinned: Bool) {
         self.wordID = wordID
-        self.rank = rank
+        self.isPinned = isPinned
     }
     
     public init?(from string: String) {
@@ -17,16 +17,16 @@ public struct FlattenedSearchToken: Codable, Hashable, Equatable {
         guard
             components.count == 2,
             let wordID = UUID(uuidString: components[0]),
-            let rank = Int(components[1])
+            let isPinnedInt = Int(components[1])
         else { return nil }
         
-        self.init(wordID: wordID, rank: rank)
+        self.init(wordID: wordID, isPinned: isPinnedInt == 1)
     }
     
     public var asString: String {
         wordID.uuidString
         + FlattenedSearchTokenPropertySeparator
-        + "\(rank)"
+        + "\(isPinned ? 1 : 0)"
     }
 }
 

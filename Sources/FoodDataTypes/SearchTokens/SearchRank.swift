@@ -1,6 +1,6 @@
 import Foundation
 
-public enum SearchRank: Int, Codable {
+public enum SearchRank: Int, Codable, CaseIterable {
     case none       = -1
     case low        = 0
     case standard   = 1

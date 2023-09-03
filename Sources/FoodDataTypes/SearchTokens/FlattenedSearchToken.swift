@@ -5,9 +5,9 @@ private let FlattenedSearchTokenPropertySeparator = " "
 
 public struct FlattenedSearchToken: Codable, Hashable, Equatable {
     public var wordID: UUID
-    public var rank: Int
+    public var rank: SearchRank
     
-    public init(wordID: UUID, rank: Int) {
+    public init(wordID: UUID, rank: SearchRank) {
         self.wordID = wordID
         self.rank = rank
     }
@@ -17,7 +17,8 @@ public struct FlattenedSearchToken: Codable, Hashable, Equatable {
         guard
             components.count == 2,
             let wordID = UUID(uuidString: components[0]),
-            let rank = Int(components[1])
+            let rankValue = Int(components[1]),
+            let rank = SearchRank(rawValue: rankValue)
         else { return nil }
         
         self.init(wordID: wordID, rank: rank)
@@ -26,7 +27,7 @@ public struct FlattenedSearchToken: Codable, Hashable, Equatable {
     public var asString: String {
         wordID.uuidString
         + FlattenedSearchTokenPropertySeparator
-        + "\(rank)"
+        + "\(rank.rawValue)"
     }
 }
 

@@ -2,9 +2,9 @@ import Foundation
 
 public struct SearchToken: Codable, Hashable, Equatable {
     public var word: SearchWord
-    public var rank: Int
+    public var rank: SearchRank
     
-    public init(word: SearchWord, rank: Int) {
+    public init(word: SearchWord, rank: SearchRank) {
         self.word = word
         self.rank = rank
     }

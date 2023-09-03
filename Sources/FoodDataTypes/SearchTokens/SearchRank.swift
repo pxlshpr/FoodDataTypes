@@ -14,7 +14,7 @@ public extension SearchRank {
         [.low, .standard, .high, .higher, .highest]
     }
 
-    var description: String {
+    var menuDescription: String {
         switch self {
         case .none:     "Remove"
         case .low:      "Low"
@@ -22,6 +22,17 @@ public extension SearchRank {
         case .high:     "High"
         case .higher:   "Higher"
         case .highest:  "Highest"
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .none:     "Not Included"
+        case .low:      "Low Priority"
+        case .standard: "Standard Priority"
+        case .high:     "High Priority"
+        case .higher:   "Higher Priority"
+        case .highest:  "Highest Priority"
         }
     }
     

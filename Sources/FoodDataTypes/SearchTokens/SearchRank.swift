@@ -1,12 +1,12 @@
 import Foundation
 
 public enum SearchRank: Int, Codable, CaseIterable {
-    case none       = -1
-    case low        = 0
-    case standard   = 1
-    case high       = 2
-    case higher     = 3
-    case highest    = 4
+    case none       = 0
+    case low        = 1
+    case standard   = 2
+    case high       = 3
+    case higher     = 4
+    case highest    = 5
 }
 
 public extension SearchRank {

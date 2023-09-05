@@ -10,7 +10,7 @@ public extension String {
     }
 }
 
-extension String {
+public extension String {
     
     func sanitizedSearchWord() -> String {
         let invalidCharacters = CharacterSet
@@ -25,9 +25,7 @@ extension String {
             .components(separatedBy: invalidCharacters)
             .joined()
     }
-}
-
-extension String {
+    
     var searchWords: [String] {
 //        self
 //            .replacingOccurrences(of: ",", with: " ")

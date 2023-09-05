@@ -23,3 +23,17 @@ public struct SearchWord: Identifiable, Codable, Hashable, Equatable {
         self.updatedAt = updatedAt
     }
 }
+
+import CloudKit
+
+public extension SearchWord {
+    init(_ record: CKRecord) {
+        self.init(
+            id: record.id!,
+            singular: record.singular!,
+            spellings: record.spellings,
+            createdAt: record.createdAt!,
+            updatedAt: record.updatedAt!
+        )
+    }
+}

@@ -1,7 +1,23 @@
 import Foundation
 
-public enum PublicFoodKeys: String {
+public enum PublicKeys: String, CaseIterable {
     case id
+    case createdAt
+    case updatedAt
+    case isTrashed
+    
+    static var keysAsStrings: [String] {
+        allCases.map { $0.rawValue }
+    }
+}
+
+public enum PublicSearchWordKeys: String {
+    case singular
+    case spellingsString
+}
+
+public enum PublicFoodKeys: String {
+//    case id
     case name
     case detail
     case brand
@@ -24,9 +40,9 @@ public enum PublicFoodKeys: String {
     case publishStatusValue
     case datasetValue
     case datasetID
-    case createdAt
-    case updatedAt
-    case isTrashed
+//    case createdAt
+//    case updatedAt
+//    case isTrashed
     
     case ingredients
     
@@ -42,24 +58,16 @@ public enum PublicFoodKeys: String {
     case searchTokensString
 }
 
-import CloudKit
-
-public extension CKRecord {
-    subscript(key: PublicFoodKeys) -> CKRecordValue? {
-        get { self[key.rawValue] }
-        set { self[key.rawValue] = newValue }
-    }
-}
-
 public extension PublicFoodKeys {
     
     static var desiredKeysAsStrings: [String] {
         desiredKeys.map { $0.rawValue }
+        + PublicKeys.keysAsStrings
     }
     
     static var desiredKeys: [PublicFoodKeys] {
         [
-            .id,
+//            .id,
             .name,
             .detail,
             .brand,
@@ -82,9 +90,9 @@ public extension PublicFoodKeys {
             .publishStatusValue,
             .datasetValue,
             .datasetID,
-            .createdAt,
-            .updatedAt,
-            .isTrashed,
+//            .createdAt,
+//            .updatedAt,
+//            .isTrashed,
             .ingredients,
             .rejectionReasonsData,
             .rejectionNotes,

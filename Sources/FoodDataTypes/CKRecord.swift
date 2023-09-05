@@ -2,13 +2,39 @@ import Foundation
 import CloudKit
 
 public let BarcodesSeparator = "¦"
+public let SpellingsSeparator = " ¦ "
+
 //public let SearchTokensSeparator = " ¦ "
+
+public extension CKRecord {
+    subscript(key: PublicFoodKeys) -> CKRecordValue? {
+        get { self[key.rawValue] }
+        set { self[key.rawValue] = newValue }
+    }
+    
+    subscript(key: PublicSearchWordKeys) -> CKRecordValue? {
+        get { self[key.rawValue] }
+        set { self[key.rawValue] = newValue }
+    }
+    
+    subscript(key: PublicKeys) -> CKRecordValue? {
+        get { self[key.rawValue] }
+        set { self[key.rawValue] = newValue }
+    }
+}
 
 public extension CKRecord {
     var id: UUID? {
         guard let string = self[.id] as? String else { return nil }
         return UUID(uuidString: string)
     }
+    var updatedAt: Date? { self[.updatedAt] as? Date }
+    var createdAt: Date? { self[.createdAt] as? Date }
+    var isTrashed: Bool? { self[.isTrashed] as? Bool }
+}
+
+/// `Food` specific
+public extension CKRecord {
     var emoji: String? { self[.emoji] as? String }
     var name: String? { self[.name] as? String }
     var detail: String? { self[.detail] as? String }
@@ -80,10 +106,13 @@ public extension CKRecord {
         guard let rawValue = self[.datasetValue] as? Int else { return nil }
         return FoodDataset(rawValue: rawValue)
     }
-    
-    var updatedAt: Date? { self[.updatedAt] as? Date }
-    var createdAt: Date? { self[.createdAt] as? Date }
+}
 
-    var isTrashed: Bool? { self[.isTrashed] as? Bool }
-
+/// `SearchWord` specific
+public extension CKRecord {
+    var singular: String? { self[.singular] as? String }
+    var spellings: [String] {
+        guard let string = self[.spellingsString] as? String else { return [] }
+        return string.components(separatedBy: SpellingsSeparator)
+    }
 }

@@ -8,19 +8,22 @@ public struct SearchWord: Identifiable, Codable, Hashable, Equatable {
     public var spellings: [String]
     public var createdAt: Date
     public var updatedAt: Date
+    public var isTrashed: Bool
     
     public init(
         id: UUID = UUID(),
         singular: String,
         spellings: [String],
         createdAt: Date = Date(),
-        updatedAt: Date = Date()
+        updatedAt: Date = Date(),
+        isTrashed: Bool = false
     ) {
         self.id = id
         self.singular = singular
         self.spellings = spellings
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.isTrashed = isTrashed
     }
 }
 
@@ -33,7 +36,8 @@ public extension SearchWord {
             singular: record.singular!,
             spellings: record.spellings,
             createdAt: record.createdAt!,
-            updatedAt: record.updatedAt!
+            updatedAt: record.updatedAt!,
+            isTrashed: record.isTrashed!
         )
     }
 }

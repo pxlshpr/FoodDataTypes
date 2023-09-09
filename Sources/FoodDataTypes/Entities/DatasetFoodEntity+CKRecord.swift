@@ -21,8 +21,8 @@ public extension DatasetFoodEntity {
         brand = record.brand
 
         amount = record.amount!
-        serving = record.serving!
-        previewAmount = record.previewAmount!
+        serving = record.serving
+        previewAmount = record.previewAmount
 
         energy = record.energy!
         energyUnit = record.energyUnit!
@@ -33,7 +33,7 @@ public extension DatasetFoodEntity {
         micros = record.micros!
         sizes = record.sizes!
         density = record.density!
-        type = record.type!
+        type = record.type ?? .food
 
         datasetID = record.datasetID!
         dataset = record.dataset!

@@ -1,7 +1,5 @@
 import Foundation
 
-import FoodDataTypes
-
 extension PublicStore.Container {
     
     func words(

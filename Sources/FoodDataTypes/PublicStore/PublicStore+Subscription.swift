@@ -1,8 +1,6 @@
 import CloudKit
 import OSLog
 
-import FoodDataTypes
-
 private let logger = Logger(subsystem: "PublicBackend", category: "Subscription")
 
 extension PublicStore {

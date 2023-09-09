@@ -1,8 +1,6 @@
 import Foundation
 import CoreData
 
-import FoodDataTypes
-
 extension PublicStore {
     static func words(
         matching text: String? = nil,

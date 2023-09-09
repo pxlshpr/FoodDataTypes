@@ -1,7 +1,5 @@
 import Foundation
 
-import FoodDataTypes
-
 extension PublicStore {
     
     func searchFoods(
@@ -26,7 +24,7 @@ extension PublicStore {
         }
     }
     
-    func fetchFoodsMatching(_ fields: SearchWordFields) async -> [Food] {
+    public func fetchFoodsMatching(_ fields: SearchWordFields) async -> [Food] {
         do {
             return try await withCheckedThrowingContinuation { continuation in
                 do {

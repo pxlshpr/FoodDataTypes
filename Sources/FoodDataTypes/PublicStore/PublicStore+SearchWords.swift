@@ -31,7 +31,7 @@ extension PublicStore {
 
 extension PublicStore {
     
-    static func findWords(in text: String) async -> [FindWordResult] {
+    public static func findWords(in text: String) async -> [FindWordResult] {
         
         let wordStrings = text
             .lowercased()

@@ -2,6 +2,13 @@ import Foundation
 
 extension PublicStore {
     
+    public static func searchFoods(
+        _ wordResults: [FindWordResult],
+        _ page: Int
+    ) async -> [Food] {
+        await shared.searchFoods(wordResults, page)
+    }
+    
     func searchFoods(
         _ wordResults: [FindWordResult],
 //        _ unrecognizedWords: [String],

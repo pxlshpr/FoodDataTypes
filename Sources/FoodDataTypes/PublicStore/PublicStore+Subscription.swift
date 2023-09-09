@@ -1,7 +1,7 @@
 import CloudKit
 import OSLog
 
-private let logger = Logger(subsystem: "PublicBackend", category: "Subscription")
+private let logger = Logger(subsystem: "PublicStore", category: "Subscription")
 
 extension PublicStore {
     func setupSubscription() {
@@ -20,13 +20,13 @@ extension PublicStore {
         )
         
         let notification = CKSubscription.NotificationInfo()
-        notification.alertBody = ""
+        notification.alertBody = "" /// this is probably not needed, test without it
         notification.shouldSendContentAvailable = true
         subscription.notificationInfo = notification
         
         Task {
             do {
-                let subscription = try await PublicDatabase.save(subscription)
+                let _ = try await PublicDatabase.save(subscription)
                 logger.info("DatasetFoods subscription saved")
                 UserDefaults.standard.setValue(true, forKey: DefaultsKeys.didCreateDatasetFoodsSubscription)
             } catch {

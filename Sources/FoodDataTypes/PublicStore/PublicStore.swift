@@ -5,8 +5,8 @@ import OSLog
 
 import Zip
 
-private let overviewLogger = Logger(subsystem: "PublicBackend", category: "Overview")
-private let syncSleep: Double = 3
+private let overviewLogger = Logger(subsystem: "PublicStore", category: "Overview")
+private let UploadPollInterval: TimeInterval = 3
 let PresetModifiedDate = Date(timeIntervalSince1970: 1693936840)
 
 @Observable public class PublicStore {
@@ -15,7 +15,7 @@ let PresetModifiedDate = Date(timeIntervalSince1970: 1693936840)
     
     let container: Container
 
-    let logger = Logger(subsystem: "PublicBackend", category: "")
+    let logger = Logger(subsystem: "PublicStore", category: "")
     public static var logger: Logger { shared.logger }
     
     var uploadTask: Task<Void, Error>? = nil
@@ -95,7 +95,7 @@ extension PublicStore {
         uploadTask = Task.detached(priority: .medium) {
             while true {
                 await self.uploadChanges()
-                try await sleepTask(syncSleep, tolerance: 1)
+                try await sleepTask(UploadPollInterval, tolerance: 1)
                 try Task.checkCancellation()
             }
         }

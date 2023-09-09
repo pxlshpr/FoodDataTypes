@@ -68,11 +68,3 @@ public extension Entity {
         }
     }
 }
-
-public extension Entity {
-    func setAsUpdated() {
-        self.setValue(Date.now, forKeyPath: "updatedAt")
-        self.setValue(false, forKeyPath: "isSynced")
-    }
-}
-

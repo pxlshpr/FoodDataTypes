@@ -100,7 +100,10 @@ extension PublicStore {
             }
         }
     }
+}
 
+extension PublicStore {
+    
     public static func fetchChanges() {
         shared.fetchChanges()
     }
@@ -117,9 +120,11 @@ extension PublicStore {
         do {
             let wordsDate = try await fetchSearchWords(context)
             try Task.checkCancellation()
-            let foodsDate = try await fetchDatasetFoods(context)
-            
-            if let latestDate = [wordsDate, foodsDate].latestDate {
+            let datasetFoodsDate = try await fetchDatasetFoods(context)
+            try Task.checkCancellation()
+            let verifiedFoodsDate = try await fetchDatasetFoods(context)
+
+            if let latestDate = [wordsDate, datasetFoodsDate, verifiedFoodsDate].latestDate {
                 setLatestModificationDate(latestDate)
             }
         } catch {
@@ -283,32 +288,6 @@ extension PublicStore {
         }
         
         return try await fetchUpdatedRecords(.searchWord, context, persist)
-    }
-    
-    func fetchDatasetFoods(_ context: NSManagedObjectContext) async throws -> Date? {
-        
-        func persist(record: CKRecord) {
-            
-            @Sendable
-            func performChanges() {
-                if let existing = DatasetFoodEntity.object(with: record.id!, in: context) {
-                    existing.merge(with: record, context: context)
-                } else {
-                    let entity = DatasetFoodEntity(record, context)
-                    context.insert(entity)
-                }
-            }
-            
-            Task {
-                await context.performInBackgroundAndMergeWithMainContext(
-                    mainContext: PublicStore.mainContext,
-                    posting: .didUpdateFood,
-                    performBlock: performChanges
-                )
-            }
-        }
-        
-        return try await fetchUpdatedRecords(.datasetFood, context, persist)
     }
 }
 

@@ -102,6 +102,12 @@ public extension Food {
 }
 
 public extension VerifiedFoodEntity {
+    
+    convenience init(_ record: CKRecord, _ context: NSManagedObjectContext) {
+        self.init(context: context)
+        self.fill(with: record)
+    }
+    
     func fill(with record: CKRecord) {
         self.id = record.id!
         self.emoji = record.emoji!

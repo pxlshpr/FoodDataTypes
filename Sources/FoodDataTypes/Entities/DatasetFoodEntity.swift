@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 @objc(DatasetFoodEntity)
-public class DatasetFoodEntity: NSManagedObject, Identifiable, Entity { }
+public class DatasetFoodEntity: NSManagedObject, Identifiable, PublicEntity { }
 
 extension DatasetFoodEntity {
 

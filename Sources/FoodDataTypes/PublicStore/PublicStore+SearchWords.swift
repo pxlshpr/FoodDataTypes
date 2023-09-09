@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 extension PublicStore {
-    static func words(
+    public static func words(
         matching text: String? = nil,
         page: Int
     ) async -> [SearchWord] {

@@ -6,7 +6,7 @@ let FoodsPageSize = 1000
 let SearchWordPageSize = 50
 
 @objc(SearchWordEntity)
-public class SearchWordEntity: NSManagedObject, Identifiable, Entity { }
+public class SearchWordEntity: NSManagedObject, Identifiable, PublicEntity { }
 
 extension SearchWordEntity {
 
@@ -16,12 +16,12 @@ extension SearchWordEntity {
 
     @NSManaged public var createdAt: Date?
     @NSManaged public var id: UUID?
-    @NSManaged public var isSynced: Bool
     @NSManaged public var isTrashed: Bool
     @NSManaged public var singular: String?
     @NSManaged public var spellingsString: String?
+    
     @NSManaged public var updatedAt: Date?
-
+    @NSManaged public var isSynced: Bool
 }
 
 public extension SearchWordEntity {
@@ -35,54 +35,21 @@ public extension SearchWordEntity {
         self.fill(fields: fields)
     }
     
-    convenience init(_ record: CKRecord, _ context: NSManagedObjectContext) {
-        self.init(context: context)
-        self.id = record.id
-        self.singular = record.singular
-        self.spellings = record.spellings
-        self.createdAt = record.createdAt
-        self.updatedAt = record.updatedAt
-        self.isTrashed = record.isTrashed ?? false
-
-        self.isSynced = true
-    }
+//    convenience init(_ record: CKRecord, _ context: NSManagedObjectContext) {
+//        self.init(context: context)
+//        self.id = record.id
+//        self.singular = record.singular
+//        self.spellings = record.spellings
+//        self.createdAt = record.createdAt
+//        self.updatedAt = record.updatedAt
+//        self.isTrashed = record.isTrashed ?? false
+//
+//        self.isSynced = true
+//    }
     
     func fill(fields: SearchWordFields) {
         self.singular = fields.singular
         self.spellings = fields.spellings
-    }
-}
-
-public extension SearchWordEntity {
-    
-    func merge(with record: CKRecord, context: NSManagedObjectContext) {
-        
-        let previousID = self.id!
-        self.id = record.id /// Use the record's ID regardless of how recent our version is
-
-        /// If the record is more recent than this version
-        /// *Note: The `updatedAt` time is used instead of CloudKit's `modificationDate`, so that we are comparing
-        /// when the records were actually updated on their respective devices, and not when they were saved in CloudKit
-        /// (to account for situations such as the network not being available).*
-        if record.updatedAt! > self.updatedAt! {
-            /// Use all its values, discarding our changes (singular might change too if it had a diacritic)
-            self.singular = record.singular
-            self.createdAt = record.createdAt
-            self.updatedAt = record.updatedAt
-            self.isTrashed = record.isTrashed ?? false
-            self.spellings = record.spellings
-
-            /// Make sure we're not setting this to be synced any more in case it was set to `false` by changes we have now discarded
-            isSynced = true
-        } else {
-            /// If our version is more recent then we retain any changes we may have made, which will be
-            /// subsequently uploaded during the sync.
-        }
-
-        /// Replace the ID in any entities that may have used the old ID if it's different to what we have
-        if previousID != id {
-            DatasetFoodEntity.replaceWordID(previousID, with: record.id!, context: context)
-        }
     }
 }
 

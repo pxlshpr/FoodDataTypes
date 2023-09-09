@@ -20,7 +20,6 @@ let PresetModifiedDate = Date(timeIntervalSince1970: 1693936840)
     
     var uploadTask: Task<Void, Error>? = nil
     var fetchTask: Task<Void, Error>? = nil
-    var shouldUpdateVersion: Bool = false
 
     public convenience init() {
         self.init(container: Container())
@@ -118,13 +117,20 @@ extension PublicStore {
     private func fetchChanges() async {
         let context = PublicStore.newBackgroundContext()
         do {
-            let wordsDate = try await fetchSearchWords(context)
-            try Task.checkCancellation()
-            let datasetFoodsDate = try await fetchDatasetFoods(context)
-            try Task.checkCancellation()
-            let verifiedFoodsDate = try await fetchDatasetFoods(context)
-
-            if let latestDate = [wordsDate, datasetFoodsDate, verifiedFoodsDate].latestDate {
+            
+            let types: [any PublicEntity.Type] = [
+                SearchWordEntity.self,
+                DatasetFoodEntity.self
+            ]
+            
+            var dates: [Date?] = []
+            for type in types {
+                let date = try await type.fetchAndPersistUpdatedRecords(context)
+                dates.append(date)
+                try Task.checkCancellation()
+            }
+            
+            if let latestDate = dates.latestDate {
                 setLatestModificationDate(latestDate)
             }
         } catch {
@@ -262,89 +268,58 @@ extension PublicStore {
 
 //MARK: - Download
 
-extension PublicStore {
-
-    func fetchSearchWords(_ context: NSManagedObjectContext) async throws -> Date? {
-        
-        func persist(record: CKRecord) {
-            
-            @Sendable
-            func performChanges() {
-                if let existing = SearchWordEntity.existingWord(matching: record, context: context) {
-                    existing.merge(with: record, context: context)
-                } else {
-                    let entity = SearchWordEntity(record, context)
-                    context.insert(entity)
-                }
-            }
-            
-            Task {
-                await context.performInBackgroundAndMergeWithMainContext(
-                    mainContext: PublicStore.mainContext,
-                    posting: .didUpdateWord,
-                    performBlock: performChanges
-                )
-            }
-        }
-        
-        return try await fetchUpdatedRecords(.searchWord, context, persist)
-    }
-}
-
-extension PublicStore {
+func fetchUpdatedRecords(
+    _ type: RecordType,
+    _ context: NSManagedObjectContext,
+    _ persistRecordHandler: @escaping (CKRecord) -> ()
+) async throws -> Date? {
     
-    func fetchUpdatedRecords(
-        _ type: RecordType,
-        _ context: NSManagedObjectContext,
-        _ persistRecordHandler: @escaping (CKRecord) -> ()
-    ) async throws -> Date? {
-        
-        var latestModificationDate: Date? = nil
-        
-        func processRecords(for query: CKQuery? = nil, continuing cursor: CKQueryOperation.Cursor? = nil) async throws {
-            do {
-                let (results, cursor) = if let query {
-                    try await PublicDatabase.records(matching: query)
-                } else {
-                    try await PublicDatabase.records(continuingMatchFrom: cursor!)
-                }
-                
-                logger.debug("Fetched \(results.count) records")
-                
-                latestModificationDate = results.latestModificationDate(ifAfter: latestModificationDate)
-                
-                if !results.isEmpty { shouldUpdateVersion = true }
-                for result in results {
-                    switch result.1 {
-                    case .success(let record):
-                        persistRecordHandler(record)
-                    case .failure(let error):
-                        throw error
-                    }
-                }
-                
-                if let cursor {
-                    logger.info("Received a cursor, running a new query with that")
-                    try await processRecords(continuing: cursor)
-                } else {
-                    logger.info("✅ Looks like we're done with a lastModifiedDate of: \(String(describing: latestModificationDate))")
-                }
-                
-            } catch let error as CKError {
-                if error.code == .unknownItem {
-                    logger.info("Fetch failed with unknownItem error, treating as success")
-                } else {
+    var latestModificationDate: Date? = nil
+    
+    func processRecords(for query: CKQuery? = nil, continuing cursor: CKQueryOperation.Cursor? = nil) async throws {
+        let logger = Logger(subsystem: "Fetch", category: "")
+        do {
+            
+            let (results, cursor) = if let query {
+                try await PublicDatabase.records(matching: query)
+            } else {
+                try await PublicDatabase.records(continuingMatchFrom: cursor!)
+            }
+            
+            logger.debug("Fetched \(results.count) records")
+            
+            latestModificationDate = results.latestModificationDate(ifAfter: latestModificationDate)
+            
+            for result in results {
+                switch result.1 {
+                case .success(let record):
+                    persistRecordHandler(record)
+                case .failure(let error):
                     throw error
                 }
-            } catch {
+            }
+            
+            if let cursor {
+                logger.info("Received a cursor, running a new query with that")
+                try await processRecords(continuing: cursor)
+            } else {
+                logger.info("✅ Looks like we're done with a lastModifiedDate of: \(String(describing: latestModificationDate))")
+            }
+            
+        } catch let error as CKError {
+            if error.code == .unknownItem {
+                logger.info("Fetch failed with unknownItem error, treating as success")
+            } else {
                 throw error
             }
+        } catch {
+            throw error
         }
-        
-        let query = CKQuery.updatedRecords(of: type)
-        try await processRecords(for: query)
-        return latestModificationDate
     }
+    
+    let query = CKQuery.updatedRecords(of: type)
+    try await processRecords(for: query)
+    return latestModificationDate
 }
 
 extension Array where Element == CKRecord {

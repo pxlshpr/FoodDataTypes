@@ -73,78 +73,6 @@ public extension DatasetFoodEntity {
 }
 
 public extension DatasetFoodEntity {
-
-    func merge(with record: CKRecord, context: NSManagedObjectContext) {
-        
-        /// If the record is more recent than this version
-        if record.updatedAt! > self.updatedAt! {
-            /// Use all its values (that could have possibly changed), discarding our changes
-            name = record.name
-            emoji = record.emoji
-            detail = record.detail
-            brand = record.brand
-            
-            amount = record.amount!
-            serving = record.serving
-            previewAmount = record.previewAmount
-            
-            energy = record.energy!
-            energyUnit = record.energyUnit!
-            carb = record.carb!
-            fat = record.fat!
-            protein = record.protein!
-            
-            micros = record.micros!
-            sizes = record.sizes!
-            density = record.density
-            type = record.type ?? .food
-
-            datasetID = record.datasetID
-            dataset = record.dataset
-            
-            barcodes = record.barcodes
-            searchTokens = record.searchTokens
-
-            updatedAt = record.updatedAt
-            createdAt = record.createdAt
-            isTrashed = record.isTrashed ?? false
-
-            
-            /// Make sure we're not setting this to be synced any more in case it was set to `false` by changes we have now discarded
-            isSynced = true
-        } else {
-            /// If our version is more recent then we retain any changes we may have made, which will be
-            /// subsequently uploaded during the sync.
-        }
-    }
-}
-
-public extension CKRecord {
-    func update(withDatasetFoodEntity entity: DatasetFoodEntity) {
-        /// Make sure the `id` of the `CKRecord` never changes
-        self[.name] = entity.name! as CKRecordValue
-        self[.emoji] = entity.emoji! as CKRecordValue
-        if let detail = entity.detail {
-            self[.detail] = detail as CKRecordValue
-        } else {
-            self[.detail] = nil
-        }
-        if let brand = entity.brand {
-            self[.brand] = brand as CKRecordValue
-        } else {
-            self[.brand] = nil
-        }
-        if let searchTokensString = entity.searchTokensString {
-            self[.searchTokensString] = searchTokensString as CKRecordValue
-        } else {
-            self[.searchTokensString] = nil
-        }
-        self[.isTrashed] = entity.isTrashed as CKRecordValue
-        self[.updatedAt] = entity.updatedAt! as CKRecordValue
-    }
-}
-
-public extension DatasetFoodEntity {
     
     var searchTokens: [FlattenedSearchToken] {
         get {
@@ -374,37 +302,5 @@ public extension DatasetFoodEntity {
         createdAt = food.createdAt
         updatedAt = food.updatedAt
         isTrashed = food.isTrashed
-    }
-}
-
-public extension DatasetFoodEntity {
-    convenience init(_ record: CKRecord, _ context: NSManagedObjectContext) {
-        self.init(context: context)
-        amount = record.amount!
-        barcodes = record.barcodes
-        brand = record.brand!
-        carb = record.carb!
-        createdAt = record.createdAt!
-        datasetID = record.datasetID!
-        dataset = record.dataset!
-        density = record.density!
-        detail = record.detail!
-        emoji = record.emoji!
-        energy = record.energy!
-        energyUnit = record.energyUnit!
-        fat = record.fat!
-        id = record.id!
-        isTrashed = record.isTrashed ?? false
-        micros = record.micros!
-        name = record.name!
-        previewAmount = record.previewAmount!
-        protein = record.protein!
-        searchTokens = record.searchTokens
-        serving = record.serving!
-        sizes = record.sizes!
-        type = record.type!
-        updatedAt = record.updatedAt!
-
-        self.isSynced = true
     }
 }

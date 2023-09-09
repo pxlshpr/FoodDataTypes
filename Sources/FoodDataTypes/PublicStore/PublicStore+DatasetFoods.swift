@@ -23,8 +23,12 @@ extension PublicStore {
             return []
         }
     }
+
+    public static func fetchFoodsMatching(_ fields: SearchWordFields) async -> [Food] {
+        await shared.fetchFoodsMatching(fields)
+    }
     
-    public func fetchFoodsMatching(_ fields: SearchWordFields) async -> [Food] {
+    func fetchFoodsMatching(_ fields: SearchWordFields) async -> [Food] {
         do {
             return try await withCheckedThrowingContinuation { continuation in
                 do {

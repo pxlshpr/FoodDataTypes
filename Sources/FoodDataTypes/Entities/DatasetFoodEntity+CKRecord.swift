@@ -17,8 +17,8 @@ public extension DatasetFoodEntity {
 
         name = record.name!
         emoji = record.emoji!
-        detail = record.detail!
-        brand = record.brand!
+        detail = record.detail
+        brand = record.brand
 
         amount = record.amount!
         serving = record.serving!

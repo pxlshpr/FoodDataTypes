@@ -32,7 +32,7 @@ public extension DatasetFoodEntity {
 
         micros = record.micros!
         sizes = record.sizes!
-        density = record.density!
+        density = record.density
         type = record.type ?? .food
 
         datasetID = record.datasetID!

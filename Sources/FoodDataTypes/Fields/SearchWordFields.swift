@@ -1,10 +1,10 @@
 import Foundation
 
 public struct SearchWordFields: Hashable, Equatable {
-    public var singular: String = ""
-    public var spellings: [String] = []
+    public var singular: String
+    public var spellings: [String]
     
-    public init(singular: String, spellings: [String]) {
+    public init(singular: String = "", spellings: [String] = []) {
         self.singular = singular
         self.spellings = spellings
     }

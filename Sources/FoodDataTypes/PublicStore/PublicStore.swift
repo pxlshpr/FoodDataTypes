@@ -41,8 +41,8 @@ let PresetModifiedDate = Date(timeIntervalSince1970: 1693936840)
     }
 }
 
-public extension PublicStore {
-    static func populateIfEmpty() {
+extension PublicStore {
+    public static func populateIfEmpty() {
         let start = CFAbsoluteTimeGetCurrent()
         var count = DatasetFoodEntity.countAll(in: shared.container.viewContext)
         guard count == 0 else {
@@ -61,6 +61,10 @@ public extension PublicStore {
 
         count = DatasetFoodEntity.countAll(in: shared.container.viewContext)
         logger.debug("Populated \(count) DatasetFoods in \(CFAbsoluteTimeGetCurrent()-start)s")
+    }
+
+    public static func replacePersisteStore(with url: URL) {
+        shared.replacePersisteStore(with: url)
     }
     
     func replacePersisteStore(with url: URL) {

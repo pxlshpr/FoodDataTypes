@@ -16,7 +16,7 @@ let PresetModifiedDate = Date(timeIntervalSince1970: 1693936840)
     let container: Container
 
     let logger = Logger(subsystem: "PublicBackend", category: "")
-    static var logger: Logger { shared.logger }
+    public static var logger: Logger { shared.logger }
     
     var uploadTask: Task<Void, Error>? = nil
     var fetchTask: Task<Void, Error>? = nil

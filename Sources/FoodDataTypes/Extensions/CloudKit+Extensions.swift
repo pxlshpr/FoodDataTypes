@@ -133,10 +133,13 @@ public extension CKDatabase {
 public extension NSPredicate {
     static var recordsToDownload: NSPredicate {
         if let latestModificationDate {
-            /// Always fetch records with a 15 minute buffer from the last fetched record's modification date to allow for CloudKit's indexing to complete
-            let date = latestModificationDate.addingTimeInterval(-60 * 15)
-            PublicStore.logger.debug("Getting records after: \(date)")
-            let predicate = NSPredicate(format: "modificationDate > %@", date as NSDate)
+//            /// Always fetch records with a 15 minute buffer from the last fetched record's modification date to allow for CloudKit's indexing to complete
+//            let date = latestModificationDate.addingTimeInterval(-60 * 15)
+//            PublicStore.logger.debug("Getting records after: \(date)")
+//            let predicate = NSPredicate(format: "modificationDate > %@", date as NSDate)
+            
+            PublicStore.logger.debug("Getting records after: \(latestModificationDate)")
+            let predicate = NSPredicate(format: "modificationDate > %@", latestModificationDate as NSDate)
             return predicate
         } else {
             return NSPredicate(format: "TRUEPREDICATE")

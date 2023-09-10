@@ -7,7 +7,7 @@ import Zip
 
 private let overviewLogger = Logger(subsystem: "PublicStore", category: "Overview")
 private let UploadPollInterval: TimeInterval = 3
-let PresetModifiedDate = Date(timeIntervalSince1970: 1693936840)
+let PresetModifiedDate = Date(timeIntervalSince1970: 1690830000) /// 1 Aug 2023
 
 @Observable public class PublicStore {
     

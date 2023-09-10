@@ -10,31 +10,39 @@ extension DatasetFoodEntity {
         return NSFetchRequest<DatasetFoodEntity>(entityName: "DatasetFoodEntity")
     }
 
-    @NSManaged public var amountData: Data?
-    @NSManaged public var barcodesString: String?
-    @NSManaged public var brand: String?
-    @NSManaged public var carb: Double
-    @NSManaged public var createdAt: Date?
-    @NSManaged public var datasetID: String?
-    @NSManaged public var datasetValue: Int16
-    @NSManaged public var densityData: Data?
-    @NSManaged public var detail: String?
+    @NSManaged public var id: UUID?
+
+    @NSManaged public var name: String?
     @NSManaged public var emoji: String?
+    @NSManaged public var detail: String?
+    @NSManaged public var brand: String?
+
+    @NSManaged public var amountData: Data?
+    @NSManaged public var servingData: Data?
+    @NSManaged public var previewAmountData: Data?
+    
     @NSManaged public var energy: Double
     @NSManaged public var energyUnitValue: Int16
+    @NSManaged public var carb: Double
     @NSManaged public var fat: Double
-    @NSManaged public var id: UUID?
+    @NSManaged public var protein: Double
+
+    @NSManaged public var microsData: Data?
+    @NSManaged public var sizesData: Data?
+    @NSManaged public var densityData: Data?
+
+    @NSManaged public var barcodesString: String?
+    @NSManaged public var searchTokensString: String?
+
+    @NSManaged public var typeValue: Int16
+    @NSManaged public var datasetID: String?
+    @NSManaged public var datasetValue: Int16
+
+    @NSManaged public var createdAt: Date?
+    @NSManaged public var updatedAt: Date?
     @NSManaged public var isSynced: Bool
     @NSManaged public var isTrashed: Bool
-    @NSManaged public var microsData: Data?
-    @NSManaged public var name: String?
-    @NSManaged public var previewAmountData: Data?
-    @NSManaged public var protein: Double
-    @NSManaged public var searchTokensString: String?
-    @NSManaged public var servingData: Data?
-    @NSManaged public var sizesData: Data?
-    @NSManaged public var typeValue: Int16
-    @NSManaged public var updatedAt: Date?
+    
     @NSManaged public var newVersion: DatasetFoodEntity?
     @NSManaged public var oldVersion: DatasetFoodEntity?
 

@@ -17,87 +17,121 @@ public enum PublicSearchWordKeys: String {
 }
 
 public enum PublicFoodKeys: String {
-//    case id
     case name
+    case emoji
     case detail
     case brand
-    case emoji
-    case typeValue
+
+    case amountData
+    case servingData
+    case previewAmountData
+
     case energy
     case energyUnitValue
     case carb
     case fat
     case protein
+
     case microsData
-    case amountData
-    case servingData
-    case densityData
-    case previewAmountData
     case sizesData
+    case densityData
+
     case barcodesString
+    case searchTokensString
+
+    case typeValue
+    case ingredients
+    
+    /// DatasetFood specific
+    case datasetValue
+    case datasetID
+
+    /// VerifiedFood specific
     case url
     case ownerID
     case publishStatusValue
-    case datasetValue
-    case datasetID
-//    case createdAt
-//    case updatedAt
-//    case isTrashed
-    
-    case ingredients
-    
+    case rejectionReasonsData
+    case rejectionNotes
+    case reviewerID
     case image1
     case image2
     case image3
     case image4
     case image5
-    
-    case rejectionReasonsData
-    case rejectionNotes
-    case reviewerID
-    case searchTokensString
 }
 
+import CloudKit
+
 public extension PublicFoodKeys {
-    
-    static var desiredKeysAsStrings: [String] {
-        desiredKeys.map { $0.rawValue }
-        + PublicKeys.keysAsStrings
+    static var desiredKeysForDatasetFoods: [CKRecord.FieldKey] {
+        datasetFoodKeys.map { $0.rawValue } + PublicKeys.keysAsStrings
     }
     
-    static var desiredKeys: [PublicFoodKeys] {
+    static func desiredKeysForVerifiedFoods(withImages: Bool) -> [CKRecord.FieldKey] {
+        verifiedFoodKeys(withImages: withImages).map { $0.rawValue } + PublicKeys.keysAsStrings
+    }
+}
+
+extension PublicFoodKeys {
+    
+    static var baseKeys: [PublicFoodKeys] {
         [
-//            .id,
             .name,
+            .emoji,
             .detail,
             .brand,
-            .emoji,
-            .typeValue,
+
+            .amountData,
+            .servingData,
+            .previewAmountData,
+
             .energy,
             .energyUnitValue,
             .carb,
             .fat,
             .protein,
+
             .microsData,
-            .amountData,
-            .servingData,
-            .densityData,
-            .previewAmountData,
             .sizesData,
+            .densityData,
+
             .barcodesString,
+            .searchTokensString,
+
+            .typeValue,
+            .ingredients,
+        ]
+    }
+    
+    static var datasetFoodKeys: [PublicFoodKeys] {
+        baseKeys
+        +
+        [
+            .datasetValue,
+            .datasetID,
+        ]
+    }
+    
+    static func verifiedFoodKeys(withImages: Bool) -> [PublicFoodKeys] {
+        var keys = baseKeys
+        +
+        [
             .url,
             .ownerID,
             .publishStatusValue,
-            .datasetValue,
-            .datasetID,
-//            .createdAt,
-//            .updatedAt,
-//            .isTrashed,
-            .ingredients,
             .rejectionReasonsData,
             .rejectionNotes,
             .reviewerID,
-            .searchTokensString
         ]
+        if withImages {
+            keys += [
+                .image1,
+                .image2,
+                .image3,
+                .image4,
+                .image5,
+            ]
+        }
+        return keys
     }
 }

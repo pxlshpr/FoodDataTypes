@@ -135,11 +135,9 @@ public extension NSPredicate {
         if let latestModificationDate {
 //            /// Always fetch records with a 15 minute buffer from the last fetched record's modification date to allow for CloudKit's indexing to complete
 //            let date = latestModificationDate.addingTimeInterval(-60 * 15)
-//            PublicStore.logger.debug("Getting records after: \(date)")
-//            let predicate = NSPredicate(format: "modificationDate > %@", date as NSDate)
-            
-            PublicStore.logger.debug("Getting records after: \(latestModificationDate)")
-            let predicate = NSPredicate(format: "modificationDate > %@", latestModificationDate as NSDate)
+            let date = latestModificationDate.addingTimeInterval(0.001)
+            PublicStore.logger.debug("Getting records after: \(date)")
+            let predicate = NSPredicate(format: "modificationDate > %@", date as NSDate)
             return predicate
         } else {
             return NSPredicate(format: "TRUEPREDICATE")

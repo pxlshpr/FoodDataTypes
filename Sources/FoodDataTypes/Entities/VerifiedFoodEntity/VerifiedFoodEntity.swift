@@ -7,7 +7,7 @@ import UIKit
 private let logger = Logger(subsystem: "FoodEntity", category: "")
 
 @objc(VerifiedFoodEntity)
-public class VerifiedFoodEntity: NSManagedObject, Identifiable, Entity {
+public class VerifiedFoodEntity: NSManagedObject, Identifiable, PublicEntity {
 
 }
 

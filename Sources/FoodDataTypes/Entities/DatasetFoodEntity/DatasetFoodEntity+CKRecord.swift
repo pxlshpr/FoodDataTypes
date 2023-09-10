@@ -35,7 +35,7 @@ public extension DatasetFoodEntity {
         density = record.density
         type = record.type ?? .food
 
-        datasetID = record.datasetID!
+        datasetID = record.datasetID
         dataset = record.dataset!
 
         barcodes = record.barcodes
@@ -44,8 +44,6 @@ public extension DatasetFoodEntity {
         updatedAt = record.updatedAt!
         createdAt = record.createdAt!
         isTrashed = record.isTrashed ?? false
-        
-        isSynced = true
     }
 }
 

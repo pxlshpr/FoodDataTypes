@@ -102,42 +102,6 @@ extension PublicStore {
 }
 
 extension PublicStore {
-    
-    public static func fetchChanges() {
-        shared.fetchChanges()
-    }
-    
-    func fetchChanges() {
-        fetchTask?.cancel()
-        fetchTask = Task.detached(priority: .medium) {
-            await self.fetchChanges()
-        }
-    }
-    
-    private func fetchChanges() async {
-        let context = PublicStore.newBackgroundContext()
-        do {
-            
-            let types: [any PublicEntity.Type] = [
-                SearchWordEntity.self,
-                DatasetFoodEntity.self
-            ]
-            
-            var dates: [Date?] = []
-            for type in types {
-                let date = try await type.fetchAndPersistUpdatedRecords(context)
-                dates.append(date)
-                try Task.checkCancellation()
-            }
-            
-            if let latestDate = dates.latestDate {
-                setLatestModificationDate(latestDate)
-            }
-        } catch {
-            logger.error("Error during download: \(error.localizedDescription)")
-        }
-    }
-    
     func uploadChanges() async {
         let context = PublicStore.newBackgroundContext()
         do {
@@ -270,6 +234,7 @@ extension PublicStore {
 
 func fetchUpdatedRecords(
     _ type: RecordType,
+    _ desiredKeys: [CKRecord.FieldKey]?,
     _ context: NSManagedObjectContext,
     _ persistRecordHandler: @escaping (CKRecord) -> ()
 ) async throws -> Date? {
@@ -281,7 +246,7 @@ func fetchUpdatedRecords(
         do {
             
             let (results, cursor) = if let query {
-                try await PublicDatabase.records(matching: query)
+                try await PublicDatabase.records(matching: query, desiredKeys: desiredKeys)
             } else {
                 try await PublicDatabase.records(continuingMatchFrom: cursor!)
             }

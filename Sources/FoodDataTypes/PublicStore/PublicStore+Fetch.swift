@@ -2,56 +2,47 @@ import Foundation
 import CoreData
 import CloudKit
 
+public extension PublicStore {
+    struct FetchParam {
+        let type: any PublicEntity.Type
+        let desiredKeys: [CKRecord.FieldKey]?
+        
+        public init(type: any PublicEntity.Type, desiredKeys: [CKRecord.FieldKey]? = nil) {
+            self.type = type
+            self.desiredKeys = desiredKeys
+        }
+    }
+
+    static func fetchChanges(params: [FetchParam]) {
+        shared.fetchChanges(params)
+    }
+}
+
 extension PublicStore {
+
+    func fetchChanges(_ params: [FetchParam]) {
+        fetchTask?.cancel()
+        fetchTask = Task.detached(priority: .utility) {
+            await self.fetchChanges(params)
+        }
+    }
     
-//    func fetchDatasetFoods(_ context: NSManagedObjectContext) async throws -> Date? {
-//        func persist(record: CKRecord) {
-//            @Sendable
-//            func performChanges() {
-//                if let existing = DatasetFoodEntity.object(with: record.id!, in: context) {
-//                    existing.merge(with: record, context: context)
-//                } else {
-//                    let entity = DatasetFoodEntity(context: context)
-//                    entity.sync(with: record)
-//                    context.insert(entity)
-//                }
-//            }
-//            
-//            Task {
-//                await context.performInBackgroundAndMergeWithMainContext(
-//                    mainContext: PublicStore.mainContext,
-//                    posting: .didUpdateFood,
-//                    performBlock: performChanges
-//                )
-//            }
-//        }
-//        
-//        return try await fetchUpdatedRecords(.datasetFood, context, persist)
-//    }
+    private func fetchChanges(_ params: [FetchParam]) async {
+        let context = PublicStore.newBackgroundContext()
+        do {
+            var dates: [Date?] = []
+            for param in params {
+                let date = try await param.type.fetchAndPersistUpdatedRecords(context, param.desiredKeys)
+                dates.append(date)
+                try Task.checkCancellation()
+            }
+            
+            if let latestDate = dates.latestDate {
+                setLatestModificationDate(latestDate)
+            }
+        } catch {
+            logger.error("Error during download: \(error.localizedDescription)")
+        }
+    }
     
-//    func fetchSearchWords(_ context: NSManagedObjectContext) async throws -> Date? {
-//        
-//        func persist(record: CKRecord) {
-//            
-//            @Sendable
-//            func performChanges() {
-//                if let existing = SearchWordEntity.existingWord(matching: record, context: context) {
-//                    existing.merge(with: record, context: context)
-//                } else {
-//                    let entity = SearchWordEntity(record, context)
-//                    context.insert(entity)
-//                }
-//            }
-//            
-//            Task {
-//                await context.performInBackgroundAndMergeWithMainContext(
-//                    mainContext: PublicStore.mainContext,
-//                    posting: .didUpdateWord,
-//                    performBlock: performChanges
-//                )
-//            }
-//        }
-//        
-//        return try await fetchUpdatedRecords(.searchWord, context, persist)
-//    }
 }

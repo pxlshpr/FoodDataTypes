@@ -107,63 +107,6 @@ public extension VerifiedFoodEntity {
         self.init(context: context)
         self.fill(with: record)
     }
-    
-    func fill(with record: CKRecord) {
-        self.id = record.id!
-        self.emoji = record.emoji!
-        self.name = record.name!
-        self.detail = record.detail
-        self.brand = record.brand
-        self.amount = record.amount!
-        self.serving = record.serving
-        self.previewAmount = record.previewAmount
-        self.energy = record.energy!
-        self.energyUnit = record.energyUnit!
-        self.carb = record.carb!
-        self.protein = record.protein!
-        self.fat = record.fat!
-        self.micros = record.micros!
-        self.sizes = record.sizes!
-        self.density = record.density
-        self.url = record.url
-        self.barcodes = record.barcodes
-        self.type = record.type!
-        self.publishStatus = record.publishStatus
-        self.dataset = record.dataset
-        self.datasetID = record.datasetID
-        self.updatedAt = record.updatedAt!
-        self.createdAt = record.createdAt!
-        self.isTrashed = record.isTrashed!
-        self.ownerID = record.ownerID
-        
-        self.reviewerID = record.reviewerID
-        self.rejectionReasons = record.rejectionReasons
-        self.rejectionNotes = record.rejectionNotes
-        self.searchTokens = record.searchTokens
-        
-        logger.debug("    filled info")
-
-        if let url = (record["image1"] as? CKAsset)?.fileURL {
-            image1 = try! Data(contentsOf: url)
-            logger.debug("    filled image1")
-        }
-        if let url = (record["image2"] as? CKAsset)?.fileURL {
-            image2 = try! Data(contentsOf: url)
-            logger.debug("    filled image2")
-        }
-        if let url = (record["image3"] as? CKAsset)?.fileURL {
-            image3 = try! Data(contentsOf: url)
-            logger.debug("    filled image3")
-        }
-        if let url = (record["image4"] as? CKAsset)?.fileURL {
-            image4 = try! Data(contentsOf: url)
-            logger.debug("    filled image4")
-        }
-        if let url = (record["image5"] as? CKAsset)?.fileURL {
-            image5 = try! Data(contentsOf: url)
-            logger.debug("    filled image5")
-        }
-    }
 }
 
 public extension VerifiedFoodEntity {

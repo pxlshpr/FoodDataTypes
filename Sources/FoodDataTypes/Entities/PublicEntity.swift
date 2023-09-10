@@ -36,8 +36,11 @@ public extension PublicEntity {
         isSynced = true
     }
     
-    static func fetchAndPersistUpdatedRecords(_ context: NSManagedObjectContext) async throws -> Date? {
-        func persist(record: CKRecord) {
+    static func fetchAndPersistUpdatedRecords(
+        _ context: NSManagedObjectContext,
+        _ desiredKeys: [CKRecord.FieldKey]?
+    ) async throws -> Date? {
+        func persistHandler(record: CKRecord) {
             @Sendable
             func performChanges() {
                 if let existing = Self.object(matching: record, context: context) as? Self {
@@ -59,6 +62,6 @@ public extension PublicEntity {
             }
         }
         
-        return try await fetchUpdatedRecords(recordType, context, persist)
+        return try await fetchUpdatedRecords(recordType, desiredKeys, context, persistHandler)
     }
 }

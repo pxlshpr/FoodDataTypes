@@ -21,7 +21,11 @@ public extension PublicEntity {
     }
     
     func isLessRecent(than record: CKRecord) -> Bool {
-        record.updatedAt! > self.updatedAt!
+        /// Always favour the CloudKit record when we have a timestamp missing
+        guard let updatedAt = self.updatedAt else { return true }
+        guard let recordUpdatedAt = record.updatedAt else { return true }
+        
+        return recordUpdatedAt > updatedAt
     }
     
     func merge(with record: CKRecord, context: NSManagedObjectContext) {

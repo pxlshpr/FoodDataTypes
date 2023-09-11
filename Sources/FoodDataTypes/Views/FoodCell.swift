@@ -2,7 +2,7 @@ import SwiftUI
 
 import Charts
 
-struct FoodCell: View {
+public struct FoodCell: View {
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -18,7 +18,7 @@ struct FoodCell: View {
 
     let showsPublishMetadata: Bool
     
-    init(food: Food, showsPublishMetadata: Bool = false) {
+    public init(food: Food, showsPublishMetadata: Bool = false) {
         self.food = food
         self.showsPublishMetadata = showsPublishMetadata
         
@@ -31,7 +31,7 @@ struct FoodCell: View {
         self.protein = food.protein
     }
 
-    var body: some View {
+    public var body: some View {
         HStack {
 //            notificationBadge
             emojiText
